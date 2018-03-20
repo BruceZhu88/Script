@@ -1,0 +1,2 @@
+python tts.py
+pause

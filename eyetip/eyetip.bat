@@ -1,0 +1,2 @@
+python ./eyetip.py
+pause
