@@ -99,7 +99,6 @@ class FindDevices(Crawler):
 
 if __name__ == '__main__':
     while True:
-        search = input('Please input your device: ')
         db_path = '{}/devices.db'.format(os.getcwd())
         if os.path.exists(db_path):
             os.remove(db_path)
@@ -115,14 +114,25 @@ if __name__ == '__main__':
         crawler.SQL(db_path, create_table)
         try:
             crawler.run()
-            sql = 'select * from devices where name like "%{}%"'.format(search)
+            search = input(
+                'Please input(Default is device, bruce -p means by Person): ')
+            field = 'name'
+            if '-p' in search:
+                field = 'P'
+                search = search.replace(' -p', '')
+            if search == '':
+                continue
+            sql = 'select * from devices where {} like "%{}%"'.format(
+                field, search)
             results = crawler.SQL(db_path, sql)
             if len(results) > 0:
                 t = ['Device', 'SN', 'Person', 'Time']
+                print('\n' + '*' * 100)
                 print(t[0].ljust(25), t[1].ljust(25),
                       t[2].ljust(25), t[3].ljust(25))
                 for r in results:
                     print(r[1].ljust(25), r[2].ljust(25),
                           r[3].ljust(25), r[4].ljust(25))
+                print('*' * 100 + '\n')
         except Exception as e:
             print(e)
