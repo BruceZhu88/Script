@@ -112,7 +112,9 @@ def open_url(titles):
     print('-' * 50)
 
     while True:
-        choose_title = input('Please choose: ')
+        choose_title = input('(b == back) Please choose: ')
+        if choose_title == 'b':
+            return True
         if not choose_title.isdigit():
             print('Just support number! Try again!')
             continue
