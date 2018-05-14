@@ -128,11 +128,14 @@ def open_url(titles):
 
 
 def main():
-    choose_type = input('Choose url (1.电影天堂 2.美剧吧): ')
+    choose_type = input('Choose url (1.电影天堂 2.美剧吧 3.dy2018): ')
     if not choose_type.isdigit():
         print('Just support number!')
         return False
     while True:
+        if choose_type == '3':
+            webbrowser.open('https://www.dy2018.com/html/gndy/')
+            return True
         name = input('Moive name: ')
         if name == '':
             return False
@@ -144,6 +147,9 @@ def main():
                       }},
                 '2': {'url': 'http://www.meiju8.cc/search.php?{}',
                       'query': 'kw={}'.format(name)
+                      },
+                '3': {'url': 'https://www.dy2018.com/html/gndy/',
+                      'query': ''
                       }
                 }
 
