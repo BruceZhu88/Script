@@ -7,21 +7,19 @@ if sys.version < '3':
 else:
     from tkinter import *
 
-mydelaymin = 50  # minutes
 
-
-def showMessage():
+def showMessage(t):
     # show reminder message window
     root = Tk()
     root.withdraw()  # hide window
     screenwidth = root.winfo_screenwidth()
     screenheight = root.winfo_screenheight() - 100
     root.resizable(False, False)
-    root.attributes('-topmost', 1)
+
     root.title("Warning!!")
     frame = Frame(root, relief=RIDGE, borderwidth=3)
     frame.pack(fill=BOTH, expand=1)
-    label = Label(frame, text="You have been working {} minutes! Please have a break!!".format(mydelaymin),
+    label = Label(frame, text="You have been working {} minutes! Please have a break!!".format(t),
                   font="Monotype\ Corsiva -20 bold")
     label.pack(fill=BOTH, expand=1)
     button = Button(frame, text="OK", font="Cooper -25 bold",
@@ -39,5 +37,14 @@ def showMessage():
 
 
 while True:
-    sleep(mydelaymin*60)  # 参数为秒
-    showMessage()
+    mydelaymin = input('Input time(M): ')
+    if mydelaymin.isnumeric():
+        mydelaymin = float(mydelaymin)
+        print('Start counting ...')
+        break
+    else:
+        print('Please input digit number!')
+
+while True:
+    sleep(mydelaymin * 60)  # 参数为秒
+    showMessage(mydelaymin)
